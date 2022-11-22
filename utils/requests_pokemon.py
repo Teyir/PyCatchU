@@ -23,7 +23,9 @@ def get_pokemon_species(id_or_name):
 def get_image(url):
     return requests.get(url,stream=True).raw
 
-def get_all_pokemon(page = 1):
+def get_all_pokemon(page = 1, lenght = 0):
+
+    len
 
     if page < 1 :
         url = "https://pokeapi.co/api/v2/pokemon/?limit=100000&offset=0"
