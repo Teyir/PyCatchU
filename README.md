@@ -5,6 +5,9 @@ Projet Python pokédex
 ```bash
 $ pip install requests
 ```
+````bash
+$ pip install customtkinter
+````
 
 ## Librairies utilisée 
 - [pokebase](https://github.com/PokeAPI/pokebase) Librairie pour Fetch l'API Pokemon 
