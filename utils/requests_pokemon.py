@@ -1,5 +1,5 @@
 import requests
-
+import re
 
 def get_pokemons_amount():
     url = 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=1'
@@ -22,3 +22,17 @@ def get_pokemon_species(id_or_name):
 
 def get_image(url):
     return requests.get(url,stream=True).raw
+
+def get_all_pokemon(page = 1, lenght = 0):
+
+    len
+
+    if page < 1 :
+        url = "https://pokeapi.co/api/v2/pokemon/?limit=100000&offset=0"
+    else:
+        url = "https://pokeapi.co/api/v2/pokemon/?limit=50&offset=" + str((page-1)*50)
+    response = {}
+    for poke in requests.get(url).json()["results"]:
+        response[int(re.search(r"(?<=pokemon/)[0-9]+",poke["url"]).group(0))] = poke["name"]
+
+    return response
