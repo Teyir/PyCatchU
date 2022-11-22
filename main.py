@@ -1,4 +1,4 @@
-from pages import home_page
+from pages import main_page
 
-app = home_page.App()
+app = main_page.App()
 app.mainloop()
