@@ -14,14 +14,26 @@ def get_pokemons():
 
 def get_pokemon(id_or_name):
     url = 'https://pokeapi.co/api/v2/pokemon/' + id_or_name
-    return requests.get(url).json()
+    req = requests.get(url)
+
+    if req.text == "Not Found":
+        req = requests.get('https://pokeapi.co/api/v2/pokemon/905')
+
+    return req.json()
+
 
 def get_pokemon_species(id_or_name):
     url = 'https://pokeapi.co/api/v2/pokemon-species/' + id_or_name
-    return requests.get(url).json()
+    req = requests.get(url)
+
+    if req.text == "Not Found":
+        req = requests.get('https://pokeapi.co/api/v2/pokemon-species/905')
+
+    return req.json()
+
 
 def get_image(url):
-    return requests.get(url,stream=True).raw
+    return requests.get(url, stream=True).raw
 
 def get_all_pokemon(page = 1, lenght = 0):
 
