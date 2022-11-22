@@ -9,6 +9,9 @@ $ pip install requests
 $ pip install customtkinter
 ````
 
+
+
+
 ## Librairies utilisée 
 - [pokebase](https://github.com/PokeAPI/pokebase) Librairie pour Fetch l'API Pokemon 
 - [sv-tkk (theme)](https://github.com/rdbende/Sun-Valley-ttk-theme) Librairie de theme pour le TKinter
