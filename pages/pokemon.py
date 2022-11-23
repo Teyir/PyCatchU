@@ -1,3 +1,4 @@
+import tkinter
 from tkinter import PhotoImage
 import customtkinter as ctk
 
@@ -14,64 +15,96 @@ class PokemonPage(ctk.CTkFrame):
         self.pokemon_id = pokemon_id
         self.current_pokemon = pokemon_model.Pokemon(pokemon_id)
 
-        self.rowconfigure((0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11), weight=1)
-        self.rowconfigure(12, weight=0)
+        self.rowconfigure((0, 1, 2, 3, 4, 5, 6), weight=1)
+        self.rowconfigure(7, weight=0)
         self.columnconfigure((0, 1, 2, 3, 4), weight=1)
         self.columnconfigure(5, weight=0)
 
     def setup(self):
+
         # Pokemon image
         img = download_file(self.current_pokemon.spriteUrlHighQuality).subsample(3, 3)
 
-        self.master.pokemon_image = ui_kits.img(self, img)
-        self.master.pokemon_image.grid(row=0, column=2)
+        self.frame_Image = ctk.CTkFrame(master=self, width=200, height=200, corner_radius=5, fg_color=self.fg_color)
+        self.frame_Image.grid(row=0, column=2, padx=5, pady=5, sticky="nsew")
+
+        self.master.pokemon_image = ui_kits.img(self.frame_Image, img)
+        self.master.pokemon_image.place(relx=0.5, rely=0.5, anchor=tkinter.CENTER)
 
         #  id
-        self.master.label_id = ctk.CTkLabel(master=self, text="Id : " + str(self.current_pokemon.id_formatted),
-                                            corner_radius=5
-                                            )
-        self.master.label_id.grid(row=1, column=2)
+        self.frame_Id = ctk.CTkFrame(master=self, width=100, height=40, corner_radius=5)
+        self.frame_Id.grid(row=1, column=2, padx=5, pady=5)
+
+        self.master.label_id = ctk.CTkLabel(master=self.frame_Id, text=self.current_pokemon.id_formatted)
+        self.master.label_id.place(relx=0.5, rely=0.5, anchor=tkinter.CENTER)
 
         #  name
-        self.master.label_name = ctk.CTkLabel(master=self, text="Name : " + str(self.current_pokemon.name))
-        self.master.label_name.grid(row=2, column=2)
+        self.frame_Name = ctk.CTkFrame(master=self, width=200, height=40, corner_radius=5)
+        self.frame_Name.grid(row=0, column=4, padx=5, pady=5, sticky="ne")
+
+        self.master.label_name = ctk.CTkLabel(master=self.frame_Name, text="Name : " + str(self.current_pokemon.name))
+        self.master.label_name.place(relx=0.5, rely=0.5, anchor=tkinter.CENTER)
 
         # type
-        self.master.label_type = ctk.CTkLabel(master=self, text="Type : " + str(self.current_pokemon.type))
-        self.master.label_type.grid(row=3, column=2)
+        self.frame_Type = ctk.CTkFrame(master=self, width=200, height=40, corner_radius=5)
+        self.frame_Type.grid(row=0, column=0, padx=5, pady=5, sticky="nw")
+
+        self.master.label_type = ctk.CTkLabel(master=self.frame_Type, text="Type : " + str(self.current_pokemon.type))
+        self.master.label_type.place(relx=0.5, rely=0.5, anchor=tkinter.CENTER)
 
         # STATS AREA
 
         # HP
-        self.master.label_hp = ctk.CTkLabel(master=self, text="Heatlh :" + str(self.current_pokemon.hp))
-        self.master.label_hp.grid(row=4, column=2)
+        self.frame_Hp = ctk.CTkFrame(master=self, width=200, height=20, corner_radius=5)
+        self.frame_Hp.grid(row=2, column=1, padx=5, pady=5, sticky="nsew")
+
+        self.master.label_hp = ctk.CTkLabel(master=self.frame_Hp, text="Heatlh : " + str(self.current_pokemon.hp))
+        self.master.label_hp.place(relx=0.5, rely=0.5, anchor=tkinter.CENTER)
 
         # Attack
-        self.master.label_attack = ctk.CTkLabel(master=self, text="Attack : " + str(self.current_pokemon.attack))
-        self.master.label_attack.grid(row=5, column=2)
+        self.frame_Att = ctk.CTkFrame(master=self, width=200, height=20, corner_radius=5)
+        self.frame_Att.grid(row=3, column=1, padx=5, pady=5, sticky="nsew")
+
+        self.master.label_attack = ctk.CTkLabel(master=self.frame_Att, text="Attack : " + str(self.current_pokemon.attack))
+        self.master.label_attack.place(relx=0.5, rely=0.5, anchor=tkinter.CENTER)
 
         # Defense
-        self.master.label_defense = ctk.CTkLabel(master=self, text="Defense : " + str(self.current_pokemon.defense))
-        self.master.label_defense.grid(row=6, column=2)
+        self.frame_Def = ctk.CTkFrame(master=self, width=200, height=20, corner_radius=5)
+        self.frame_Def.grid(row=4, column=1, padx=5, pady=5, sticky="nsew")
+
+        self.master.label_defense = ctk.CTkLabel(master=self.frame_Def, text="Defense : " + str(self.current_pokemon.defense))
+        self.master.label_defense.place(relx=0.5, rely=0.5, anchor=tkinter.CENTER)
 
         # Sp Attack
-        self.master.label_sp_attack = ctk.CTkLabel(master=self,
+        self.frame_sp_att = ctk.CTkFrame(master=self, width=200, height=20, corner_radius=5)
+        self.frame_sp_att.grid(row=2, column=3, padx=5, pady=5, sticky="nsew")
+
+        self.master.label_sp_attack = ctk.CTkLabel(master=self.frame_sp_att,
                                                    text="Special Attack : " + str(self.current_pokemon.sp_attack))
-        self.master.label_sp_attack.grid(row=7, column=2)
+        self.master.label_sp_attack.place(relx=0.5, rely=0.5, anchor=tkinter.CENTER)
 
         # Sp Defense
-        self.master.label_sp_defense = ctk.CTkLabel(master=self,
+        self.frame_sp_def = ctk.CTkFrame(master=self, width=200, height=20, corner_radius=5)
+        self.frame_sp_def.grid(row=3, column=3, padx=5, pady=5, sticky="nsew")
+
+        self.master.label_sp_defense = ctk.CTkLabel(master=self.frame_sp_def,
                                                     text="Special Defense : " + str(self.current_pokemon.sp_defense))
-        self.master.label_sp_defense.grid(row=8, column=2)
+        self.master.label_sp_defense.place(relx=0.5, rely=0.5, anchor=tkinter.CENTER)
 
         # Speed
-        self.master.label_speed = ctk.CTkLabel(master=self, text="Speed : " + str(self.current_pokemon.speed))
-        self.master.label_speed.grid(row=9, column=2)
+        self.frame_sp_spd = ctk.CTkFrame(master=self, width=200, height=20, corner_radius=5)
+        self.frame_sp_spd.grid(row=4, column=3, padx=5, pady=5, sticky="nsew")
+
+        self.master.label_speed = ctk.CTkLabel(master=self.frame_sp_spd, text="Speed : " + str(self.current_pokemon.speed))
+        self.master.label_speed.place(relx=0.5, rely=0.5, anchor=tkinter.CENTER)
 
         # Total Stats
-        self.master.label_total_stats = ctk.CTkLabel(master=self,
-                                                     text="Puissance : " + str(self.current_pokemon.total_stats))
-        self.master.label_total_stats.grid(row=10, column=2)
+        self.frame_pow = ctk.CTkFrame(master=self, width=200, height=20, corner_radius=5)
+        self.frame_pow.grid(row=6, column=2, padx=5, pady=5, sticky="nsew")
+
+        self.master.label_total_stats = ctk.CTkLabel(master=self.frame_pow,
+                                                     text="Total Power : " + str(self.current_pokemon.total_stats))
+        self.master.label_total_stats.place(relx=0.5, rely=0.5, anchor=tkinter.CENTER)
 
         # Arrow change Pokémons
 
