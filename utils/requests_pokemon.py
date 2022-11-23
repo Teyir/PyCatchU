@@ -23,15 +23,19 @@ def get_pokemon_species(id_or_name):
 def get_image(url):
     return requests.get(url,stream=True).raw
 
-def get_all_pokemon(page = 1, lenght = 0):
+def get_all_pokemon(page = 1, lenght = None):
 
-    len
+    if lenght is None:
+        lenght = 50
 
+    lenght = str(lenght)
     if page < 1 :
         url = "https://pokeapi.co/api/v2/pokemon/?limit=100000&offset=0"
     else:
-        url = "https://pokeapi.co/api/v2/pokemon/?limit=50&offset=" + str((page-1)*50)
+        page = str((page-1)*int(lenght))
+        url = "https://pokeapi.co/api/v2/pokemon/?limit="+lenght+"&offset=" + page
     response = {}
+    print(url)
     for poke in requests.get(url).json()["results"]:
         response[int(re.search(r"(?<=pokemon/)[0-9]+",poke["url"]).group(0))] = poke["name"]
 
