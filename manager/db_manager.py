@@ -50,7 +50,7 @@ class DbManager:
     def fetch_team(self, conn, team_id):
         cur = conn.cursor()
         cur.execute("SELECT * FROM teams WHERE id = ?", (team_id,))
-        return cur.fetchall()[0]
+        return cur.fetchall()
 
     def update_team(self, conn, team_id, name, pokemon_id_1, pokemon_id_2, pokemon_id_3, pokemon_id_4, pokemon_id_5):
         cur = conn.cursor()
