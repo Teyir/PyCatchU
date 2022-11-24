@@ -20,11 +20,11 @@ class DbManager:
         sql_create_team = """CREATE TABLE IF NOT EXISTS teams (
                               id INTEGER not null primary key autoincrement,
                               name VARCHAR(255) NOT NULL ,
-                              pokemon_id_1 INT NOT NULL ,
-                              pokemon_id_2 INT NOT NULL ,
-                              pokemon_id_3 INT NOT NULL ,
-                              pokemon_id_4 INT NOT NULL ,
-                              pokemon_id_5 INT NOT NULL ,
+                              pokemon_id_1 VARCHAR(255) NOT NULL ,
+                              pokemon_id_2 VARCHAR(255) NOT NULL ,
+                              pokemon_id_3 VARCHAR(255) NOT NULL ,
+                              pokemon_id_4 VARCHAR(255) NOT NULL ,
+                              pokemon_id_5 VARCHAR(255) NOT NULL ,
                               date_created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP)"""
 
         try:

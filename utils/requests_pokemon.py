@@ -8,7 +8,7 @@ def get_pokemons_amount():
 
 
 def get_pokemons():
-    url = 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=' + get_pokemons_amount()
+    url = 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=905'
     return requests.get(url).json()
 
 
