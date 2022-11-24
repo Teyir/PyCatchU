@@ -5,7 +5,6 @@ from pages.home_page import HomePage
 from utils.requests_pokemon import get_all_pokemon
 
 
-
 class AllPokemonPage(ctk.CTkFrame):
 
     def __init__(self, *args, **kwargs):
@@ -21,6 +20,7 @@ class AllPokemonPage(ctk.CTkFrame):
         self.rowconfigure((0, 2), weight=1)
         self.rowconfigure(1, weight=10)
 
+
         self.button_next = ctk.CTkButton(master=self, width=30, height=30, text=">", command=self.nextPage)
         self.button_next.grid(column=2, row=2)
 
@@ -34,8 +34,9 @@ class AllPokemonPage(ctk.CTkFrame):
         self.drawPage(self.n_page)
 
     def prevPage(self):
-        self.n_page = 0 if self.n_page - 1 < 0 else self.n_page - 1
-        self.drawPage(self.n_page)
+        if self.n_page != 1:
+            self.n_page = 0 if self.n_page - 1 < 0 else self.n_page - 1
+            self.drawPage(self.n_page)
 
     def drawPage(self, page=None):
         if hasattr(self, 'pokeList'):
@@ -79,6 +80,7 @@ class PokeCard(ctk.CTkFrame):
         self.columnconfigure(1, weight=5)
 
         self.bind("<Button-1>", self.clicked)
+
     def clicked(self):
         self.master.master.master.frame_right.destroy()
         self.master.master.master.frame_right = HomePage(master=self)
