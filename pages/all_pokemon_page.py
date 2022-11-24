@@ -95,7 +95,7 @@ class AllPokemonPage(ctk.CTkFrame):
                 i = len(self.pokeList.item)
                 if i >= 12:
                     break
-                elif re.match(r"" + string, pokemons[poke]):
+                elif re.match(r"" + string, pokemons[poke], re.IGNORECASE):
                     self.pokeList.item[pokemons[poke]] = PokeCard(poke, pokemons[poke], master=self.pokeList,
                                                                   edit=self.edit, pokemon_number=self.pokemon_number)
                     self.pokeList.item[pokemons[poke]].grid(column=i % 4, row=int(i / 4))
