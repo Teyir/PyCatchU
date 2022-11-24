@@ -4,6 +4,7 @@ from tkinter import ttk
 import customtkinter
 
 from manager import db_manager
+from pages.team_add_page import TeamAddPage
 
 
 class TeamPage(customtkinter.CTkFrame):
@@ -74,3 +75,13 @@ class TeamPage(customtkinter.CTkFrame):
             frame_team.columnconfigure(2, weight=0)
             label_team = customtkinter.CTkLabel(text="Tu n'a pas encore d'équipes de crées", master=frame_team)
             label_team.grid(row=2, column=1, sticky="nsew")
+
+        self.button_add_team = customtkinter.CTkButton(master=self,
+                                                       text="Ajouter une équipe",
+                                                       command=self.button_team_add)
+        self.button_add_team.grid(row=5, column=1)
+
+    def button_team_add(self):
+        self.master.frame_right.destroy()
+        self.master.frame_right = TeamAddPage()
+        self.master.frame_right.setup()
