@@ -8,6 +8,9 @@ $ pip install requests
 ````bash
 $ pip install customtkinter
 ````
+````bash
+$ pip install Pillow
+````
 
 
 

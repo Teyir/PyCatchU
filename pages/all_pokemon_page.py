@@ -5,6 +5,7 @@ from pages.home_page import HomePage
 from utils.requests_pokemon import get_all_pokemon
 
 
+
 class AllPokemonPage(ctk.CTkFrame):
 
     def __init__(self, *args, **kwargs):

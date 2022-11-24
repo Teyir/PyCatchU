@@ -4,6 +4,7 @@ import customtkinter
 
 from pages.all_pokemon_page import AllPokemonPage
 from pages.home_page import HomePage
+from pages.team_page import TeamPage
 
 customtkinter.set_appearance_mode("Dark")  # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
@@ -43,7 +44,7 @@ class App(customtkinter.CTk):
         self.frame_left.grid_rowconfigure(11, minsize=10)  # empty row with minsize as spacing
 
         self.label_1 = customtkinter.CTkLabel(master=self.frame_left,
-                                              text="PyCatchU",
+                                              text="Menu",
                                               text_font=("Poppins", -16))  # font name and size in px
         self.label_1.grid(row=1, column=0, pady=10, padx=10)
 
@@ -81,6 +82,8 @@ class App(customtkinter.CTk):
 
     def button_equipe(self):
         self.frame_right.destroy()
+        self.frame_right = TeamPage(master=self)
+        self.frame_right.setup()
 
     def button_home(self):
         self.frame_right.destroy()
