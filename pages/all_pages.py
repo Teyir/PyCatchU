@@ -1,4 +1,4 @@
-# Ici on dev la page ou il y a aura les 151 premiers pokémons (Call API t'as compris)
+# Ici on dev la page ou il y a aura les 905 premiers pokémons (Call API t'as compris)
 from tkinter import *
 from tkinter import ttk
 
