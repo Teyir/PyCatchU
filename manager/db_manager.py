@@ -64,8 +64,8 @@ class DbManager:
         conn.commit()
         return cur.lastrowid
 
-    def delete_team(self, conn, team_id):
-        sql = 'DELETE FROM teams WHERE id=?'
+    def delete_team(self, conn, team_name):
+        sql = 'DELETE FROM teams WHERE name=?'
         cur = conn.cursor()
-        cur.execute(sql, (id,))
+        cur.execute(sql, (team_name,))
         conn.commit()
