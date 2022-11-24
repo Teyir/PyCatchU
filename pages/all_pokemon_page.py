@@ -56,11 +56,11 @@ class AllPokemonPage(ctk.CTkFrame):
         self.pokeList.columnconfigure((0, 1, 2, 3), weight=1)
         self.pokeList.rowconfigure((0, 1, 2), weight=1)
 
-        self.searchbar = ctk.CTkEntry(master=self, height=16, width=1000)
+        self.sv = ctk.StringVar()
+        self.prevlaue = ''
+        self.searchbar = ctk.CTkEntry(master=self, height=16, width=1000, textvariable=self.sv)
         self.searchbar.grid(row=0, column=1)
-
-        self.buttonSearch = ctk.CTkButton(master=self, command=self.search, text='🔍')
-        self.buttonSearch.grid(row=0, column=2)
+        self.searchbar.bind("<KeyRelease>", self.dynamic_search)
 
         self.pokeList.item = {}
 
@@ -74,7 +74,9 @@ class AllPokemonPage(ctk.CTkFrame):
             self.pokeList.item[requests[pokemon]].grid(column=i % 4, row=int(i / 4))
             i += 1
 
-    def search(self):
+    def dynamic_search(self, event):
+        value = self.sv.get().strip()
+        self.prevlaue = value
 
         self.pokeList.destroy()
 
@@ -95,7 +97,7 @@ class AllPokemonPage(ctk.CTkFrame):
                 i = len(self.pokeList.item)
                 if i >= 12:
                     break
-                elif re.match(r"" + string, pokemons[poke], re.IGNORECASE):
+                elif re.match(r"" + value, pokemons[poke], re.IGNORECASE):
                     self.pokeList.item[pokemons[poke]] = PokeCard(poke, pokemons[poke], master=self.pokeList,
                                                                   edit=self.edit, pokemon_number=self.pokemon_number)
                     self.pokeList.item[pokemons[poke]].grid(column=i % 4, row=int(i / 4))
