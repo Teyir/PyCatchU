@@ -1,6 +1,8 @@
+import tkinter
+
 import utils.requests_pokemon as api
 import io
-from PIL import Image
+from PIL import Image,ImageTk
 
 
 def format_id(pokemon_id):
@@ -40,8 +42,14 @@ class Pokemon:
 
     def getPixelSprite(self):
         raw_data = api.get_image(self.spriteUrlPixel)
-        return Image.open(io.BytesIO(raw_data))
+        im = Image.open(raw_data)
+        return ImageTk.PhotoImage(im)
 
     def getHighQualitySprite(self):
         raw_data = api.get_image(self.spriteUrlHighQuality)
-        return Image.open(io.BytesIO(raw_data))
+        im = Image.open(raw_data)
+        return ImageTk.PhotoImage(im)
+
+
+    def __str__(self):
+        return "#" + str(self.id) + " : " + self.name
