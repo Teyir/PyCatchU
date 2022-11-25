@@ -20,11 +20,17 @@ class TeamAddPage(ctk.CTkFrame):
         self.grid(row=0, column=1, sticky="nswe", padx=20, pady=20)
 
     def setup(self):
+
+
+        # Refresh button
+        self.master.refresh = ctk.CTkButton(master=self, text="🔄", command=self.clear)
+        self.master.refresh.grid(row=1, column=0)
+
         self.master.label_subtitle = ctk.CTkLabel(master=self,
                                                   text="Ajouter une équipe",
                                                   text_font=("Poppins", -25))  # font name and size in px
 
-        self.master.label_subtitle.grid(row=0, column=1)
+        self.master.label_subtitle.grid(row=0, column=0)
 
         self.rowconfigure((0, 1, 2, 3, 4), weight=1)
         self.rowconfigure(6, weight=0)
@@ -86,6 +92,13 @@ class TeamAddPage(ctk.CTkFrame):
         self.master.frame_right.destroy()
         from pages.team_page import TeamPage
         self.master.frame_right = TeamPage()
+        self.master.frame_right.setup()
+
+    def clear(self):
+        local_storage.LocalStorage().clear_data()
+
+        self.master.frame_right.destroy()
+        self.master.frame_right = TeamAddPage()
         self.master.frame_right.setup()
 
     def get_pokemons_names(self):
