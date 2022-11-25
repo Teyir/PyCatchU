@@ -11,6 +11,7 @@ class TeamAddPage(ctk.CTkFrame):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.poke = {}
         self.poke_1 = None
         self.poke_2 = None
         self.poke_3 = None
@@ -40,42 +41,18 @@ class TeamAddPage(ctk.CTkFrame):
         self.master.input_name = ctk.CTkEntry(master=self)
         self.master.input_name.grid(row=2, column=3)
 
-        if not local_storage.LocalStorage().get_data(item=1):
-            self.master.poke_1 = ctk.CTkButton(master=self, text='+', command=partial(self.add_pokemon, 1))
-        else:
-            self.master.poke_1 = ctk.CTkButton(master=self, text=local_storage.LocalStorage().get_data(item=1))
-            self.poke_1 = local_storage.LocalStorage().get_data(item=1)
-        self.master.poke_1.grid(row=3, column=1)
+        i = 1
+        while i <= 5:
+            print(i)
+            if not local_storage.LocalStorage().get_data(item=i):
+                self.master.poke = ctk.CTkButton(master=self, text='+', command=partial(self.add_pokemon, i))
+            else:
+                self.master.poke = ctk.CTkButton(master=self, text=local_storage.LocalStorage().get_data(item=i))
+                self.poke[i] = local_storage.LocalStorage().get_data(item=i)
+            self.master.poke.grid(row=3, column=i)
+            i += 1
 
-        if not local_storage.LocalStorage().get_data(item=2):
-            self.master.poke_2 = ctk.CTkButton(master=self, text='+', command=partial(self.add_pokemon, 2))
-        else:
-            self.master.poke_2 = ctk.CTkButton(master=self, text=local_storage.LocalStorage().get_data(item=2))
-            self.poke_2 = local_storage.LocalStorage().get_data(item=2)
-        self.master.poke_2.grid(row=3, column=2)
-
-        if not local_storage.LocalStorage().get_data(item=3):
-            self.master.poke_3 = ctk.CTkButton(master=self, text='+', command=partial(self.add_pokemon, 3))
-        else:
-            self.master.poke_3 = ctk.CTkButton(master=self, text=local_storage.LocalStorage().get_data(item=3))
-            self.poke_3 = local_storage.LocalStorage().get_data(item=3)
-        self.master.poke_3.grid(row=3, column=3)
-
-        if not local_storage.LocalStorage().get_data(item=4):
-            self.master.poke_4 = ctk.CTkButton(master=self, text='+', command=partial(self.add_pokemon, 4))
-        else:
-            self.master.poke_4 = ctk.CTkButton(master=self, text=local_storage.LocalStorage().get_data(item=4))
-            self.poke_4 = local_storage.LocalStorage().get_data(item=4)
-        self.master.poke_4.grid(row=3, column=4)
-
-        if not local_storage.LocalStorage().get_data(item=5):
-            self.master.poke_5 = ctk.CTkButton(master=self, text='+', command=partial(self.add_pokemon, 5))
-        else:
-            self.master.poke_5 = ctk.CTkButton(master=self, text=local_storage.LocalStorage().get_data(item=5))
-            self.poke_5 = local_storage.LocalStorage().get_data(item=5)
-        self.master.poke_5.grid(row=3, column=5)
-
-        if self.poke_1 is not None and self.poke_2 is not None and self.poke_3 is not None and self.poke_4 is not None and self.poke_5 is not None:
+        if 5 == len(self.poke):
             self.master.btn_submit = ctk.CTkButton(master=self,
                                                    text='Envoyer',
                                                    command=self.get_name)
@@ -90,11 +67,6 @@ class TeamAddPage(ctk.CTkFrame):
 
     def get_name(self):
         name = self.master.input_name.get()
-        poke_1 = self.poke_1
-        poke_2 = self.poke_2
-        poke_3 = self.poke_3
-        poke_4 = self.poke_4
-        poke_5 = self.poke_5
 
         # If name input is empty, we stop the function
         if not name:
@@ -103,11 +75,11 @@ class TeamAddPage(ctk.CTkFrame):
         conn = db_manager.DbManager().connection()
 
         db_manager.DbManager().add_team(conn=conn, name=name,
-                                        pokemon_id_1=poke_1,
-                                        pokemon_id_2=poke_2,
-                                        pokemon_id_3=poke_3,
-                                        pokemon_id_4=poke_4,
-                                        pokemon_id_5=poke_5)
+                                        pokemon_id_1=self.poke[1],
+                                        pokemon_id_2=self.poke[2],
+                                        pokemon_id_3=self.poke[3],
+                                        pokemon_id_4=self.poke[4],
+                                        pokemon_id_5=self.poke[5])
 
         local_storage.LocalStorage().clear_data()
 
