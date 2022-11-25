@@ -71,7 +71,7 @@ class AllPokemonPage(ctk.CTkFrame):
         for pokemon in requests.keys():
             self.pokeList.item[requests[pokemon]] = PokeCard(pokemon, requests[pokemon], master=self.pokeList,
                                                              edit=self.edit, pokemon_number=self.pokemon_number)
-            self.pokeList.item[requests[pokemon]].grid(column=i % 4, row=int(i / 4))
+            self.pokeList.item[requests[pokemon]].grid(column=i % 4, row=int(i / 4), padx=20)
             i += 1
 
     def search(self):
@@ -112,19 +112,20 @@ class PokeCard(ctk.CTkFrame):
         self.pokemon_number = pokemon_number
         self.id = id
         self.name = name
+        self.configure(corner_radius=15, border_width=1, border_color="white")
 
         if self.edit:
-            self.add = ctk.CTkButton(master=self, text="+", fg_color=self.fg_color, text_color='green',
-                                     hover=False, command=partial(self.add_team, self.name))
+            self.add = ctk.CTkButton(master=self, text="Ajouter", fg_color=self.fg_color, text_color='green', border_color='green', border_width=1,
+                                     hover_color=self.bg_color, command=partial(self.add_team, self.name), width=50)
             self.add.pack()
-            self.add.place(relx=0.5, rely=0.5)
+            self.add.place(relx=0.65, rely=0.1)
 
         self.image = ctk.CTkButton(master=self, image=getPixelSprite(id), text="", fg_color=self.fg_color,
-                                   hover=False, command=self.clicked)
-        self.image.grid(column=0)
+                                   hover=False, command=self.clicked, corner_radius=15)
+        self.image.grid(column=0, padx=(5, 0), pady=(5, 0))
 
         self.title = ctk.CTkLabel(master=self, text=self.name)
-        self.title.grid(column=1)
+        self.title.grid(column=1, padx=(0, 6), pady=(0, 6))
 
         self.columnconfigure((0, 2), weight=1)
         self.columnconfigure(1, weight=5)

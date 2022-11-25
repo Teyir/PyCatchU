@@ -36,8 +36,10 @@ class TeamPage(customtkinter.CTkFrame):
             frame_team = customtkinter.CTkFrame(master=self,
                                                 width=200,
                                                 height=50,
-                                                corner_radius=10,
-                                                fg_color=self.bg_color)
+                                                corner_radius=15,
+                                                fg_color=self.bg_color,
+                                                border_width=1,
+                                                border_color="white")
             frame_team.grid(row=row_value, column=column_value, sticky="nsew", padx=20, pady=10)
             frame_team.rowconfigure((0, 1, 2, 3, 4, 5), weight=1)
             frame_team.rowconfigure(6, weight=0)
@@ -83,7 +85,9 @@ class TeamPage(customtkinter.CTkFrame):
                                                 width=200,
                                                 height=50,
                                                 corner_radius=10,
-                                                fg_color=self.bg_color)
+                                                fg_color=self.bg_color,
+                                                border_width=1,
+                                                border_color="white")
             frame_team.grid(row=2, column=1, sticky="nsew", padx=20, pady=10)
             frame_team.rowconfigure((0, 1, 2, 3, 4, 5), weight=1)
             frame_team.rowconfigure(6, weight=0)
