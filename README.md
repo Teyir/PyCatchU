@@ -28,4 +28,4 @@ Nous avons choisit d'utiliser Tkinter car c'est une librairie graphique compatib
 
 Par rapport à l'utilisation de customTkinter, nous l'avons choisit pour gagner du temps au niveau UI, ses préfabriqués pouvant être personnalisable à souhait et comblant nos besoin en terme d'UI.
 
-LocalStoragePy nous permet de sauvegarder l'équipe lors de sa formation et un fichier sqlite nous permet de persister ces données pendant qua l'application est fermer 
+LocalStoragePy nous permet de sauvegarder l'équipe lors de sa formation et un fichier sqlite nous permet de persister ces données pendant quand l'application est fermer 
