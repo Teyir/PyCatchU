@@ -37,9 +37,7 @@ class TeamPage(customtkinter.CTkFrame):
 
             i = 2
             array_poke_img = []
-            print(team)
             while i <= 6:
-                print(team[i])
                 array_poke_img.append(requests_pokemon.get_pokemon_sprite(team[i]).subsample(2))
                 i += 1
 
@@ -71,12 +69,12 @@ class TeamPage(customtkinter.CTkFrame):
             self.button_del_team.grid(row=1, column=2, padx=(150, 0))
 
             image_frame = customtkinter.CTkFrame(master=frame_team,
-                                                width=200,
-                                                height=50,
-                                                corner_radius=15,
-                                                fg_color=self.bg_color,
-                                                border_width=1,
-                                                border_color="white")
+                                                 width=200,
+                                                 height=50,
+                                                 corner_radius=15,
+                                                 fg_color=self.bg_color,
+                                                 border_width=1,
+                                                 border_color="white")
             image_frame.grid(row=4, column=2, sticky="nsew", padx=(0, 20))
 
             image_frame.rowconfigure((0, 1, 2, 3, 4), weight=1)
@@ -123,7 +121,6 @@ class TeamPage(customtkinter.CTkFrame):
                                                      fg_color=self.fg_color,
                                                      border_width=1)
                 image_frame.grid(row=4, column=2, sticky="nsew", padx=(0, 20))
-
 
                 image_frame.rowconfigure((0, 1, 2, 3, 4), weight=1)
                 image_frame.rowconfigure(5, weight=0)

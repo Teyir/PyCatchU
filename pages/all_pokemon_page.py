@@ -117,7 +117,8 @@ class PokeCard(ctk.CTkFrame):
         self.configure(corner_radius=15, border_width=1, border_color="white")
 
         if self.edit:
-            self.add = ctk.CTkButton(master=self, text="Ajouter", fg_color=self.bg_color, text_color='green', border_color='green', border_width=1,
+            self.add = ctk.CTkButton(master=self, text="Ajouter", fg_color=self.bg_color, text_color='green',
+                                     border_color='green', border_width=1,
                                      hover_color=self.fg_color, command=partial(self.add_team, self.name), width=50)
             self.add.pack()
             self.add.place(relx=0.65, rely=0.1)
@@ -141,9 +142,6 @@ class PokeCard(ctk.CTkFrame):
 
     def add_team(self, pokemon_name):
         local_storage.LocalStorage().set_data(item=self.pokemon_number, value=pokemon_name)
-        print(self.pokemon_number)
-        print(pokemon_name)
-        print(local_storage.LocalStorage().get_data(item=self.pokemon_number))
 
         self.master.master.master.frame_right.destroy()
         from pages.team_add_page import TeamAddPage

@@ -2,7 +2,7 @@ import urllib.request
 from PIL import Image
 import requests
 import re
-from PIL import Image,ImageTk
+from PIL import Image, ImageTk
 
 from utils.images import download_file
 
@@ -26,6 +26,7 @@ def get_pokemon(id_or_name):
         req = requests.get('https://pokeapi.co/api/v2/pokemon/905')
 
     return req.json()
+
 
 def get_pokemon_sprite(name):
     link = get_pokemon(name)['sprites']['front_default']
@@ -57,7 +58,6 @@ def get_all_pokemon(page=1, lenght=None):
         page = str((page - 1) * int(lenght))
         url = "https://pokeapi.co/api/v2/pokemon/?limit=" + lenght + "&offset=" + page
     response = {}
-    print(url)
     for poke in requests.get(url).json()["results"]:
         response[int(re.search(r"(?<=pokemon/)[0-9]+", poke["url"]).group(0))] = poke["name"]
 
@@ -65,7 +65,6 @@ def get_all_pokemon(page=1, lenght=None):
 
 
 def getPixelSprite(id):
-    raw_data = get_image("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+str(id)+".png")
+    raw_data = get_image("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + str(id) + ".png")
     im = Image.open(raw_data)
     return ImageTk.PhotoImage(im)
-

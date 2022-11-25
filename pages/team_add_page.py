@@ -21,7 +21,6 @@ class TeamAddPage(ctk.CTkFrame):
 
     def setup(self):
 
-
         # Refresh button
         self.master.refresh = ctk.CTkButton(master=self, text="🔄", command=self.clear)
         self.master.refresh.grid(row=1, column=0)
@@ -49,7 +48,6 @@ class TeamAddPage(ctk.CTkFrame):
 
         i = 1
         while i <= 5:
-            print(i)
             if not local_storage.LocalStorage().get_data(item=i):
                 self.master.poke = ctk.CTkButton(master=self, text='+', command=partial(self.add_pokemon, i))
             else:
@@ -63,8 +61,6 @@ class TeamAddPage(ctk.CTkFrame):
                                                    text='Envoyer',
                                                    command=self.get_name)
             self.master.btn_submit.grid(row=4, column=3)
-
-        print(self.master.input_name.get())
 
     def add_pokemon(self, pokemon):
         self.master.frame_right.destroy()
