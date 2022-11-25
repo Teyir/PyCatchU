@@ -22,6 +22,11 @@ def get_pokemon(id_or_name):
 
     return req.json()
 
+def get_pokemon_sprite(name):
+    link = get_pokemon(name)['sprites']['front_default']
+    im = Image.open(link)
+    return ImageTk.PhotoImage(im)
+
 
 def get_pokemon_species(id_or_name):
     url = 'https://pokeapi.co/api/v2/pokemon-species/' + id_or_name
