@@ -1,6 +1,10 @@
+from functools import partial
+from tkinter import font
+
 import customtkinter as ctk
 import re
 
+from manager import local_storage
 from models.pokemon_model import Pokemon
 from pages.home_page import HomePage
 from pages.pokemon import PokemonPage
@@ -9,10 +13,11 @@ from utils.requests_pokemon import get_all_pokemon, getPixelSprite
 
 class AllPokemonPage(ctk.CTkFrame):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, edit=False, pokemon_number=1, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.grid(row=0, column=1, sticky="nswe", padx=20, pady=20)
-
+        self.edit = edit
+        self.pokemon_number = pokemon_number
         self.n_page = 1
 
     def setup(self):
@@ -64,7 +69,8 @@ class AllPokemonPage(ctk.CTkFrame):
         requests = get_all_pokemon(page=page, lenght=12)
 
         for pokemon in requests.keys():
-            self.pokeList.item[requests[pokemon]] = PokeCard(pokemon, requests[pokemon], master=self.pokeList)
+            self.pokeList.item[requests[pokemon]] = PokeCard(pokemon, requests[pokemon], master=self.pokeList,
+                                                             edit=self.edit, pokemon_number=self.pokemon_number)
             self.pokeList.item[requests[pokemon]].grid(column=i % 4, row=int(i / 4))
             i += 1
 
@@ -89,8 +95,9 @@ class AllPokemonPage(ctk.CTkFrame):
                 i = len(self.pokeList.item)
                 if i >= 12:
                     break
-                elif re.match(r"" + string, pokemons[poke]):
-                    self.pokeList.item[pokemons[poke]] = PokeCard(poke, pokemons[poke], master=self.pokeList)
+                elif re.match(r"" + string, pokemons[poke], re.IGNORECASE):
+                    self.pokeList.item[pokemons[poke]] = PokeCard(poke, pokemons[poke], master=self.pokeList,
+                                                                  edit=self.edit, pokemon_number=self.pokemon_number)
                     self.pokeList.item[pokemons[poke]].grid(column=i % 4, row=int(i / 4))
 
         else:
@@ -98,11 +105,19 @@ class AllPokemonPage(ctk.CTkFrame):
 
 
 class PokeCard(ctk.CTkFrame):
-    def __init__(self, id, name, *args, **kwargs):
+    def __init__(self, id, name, edit, pokemon_number, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+        self.edit = edit
+        self.pokemon_number = pokemon_number
         self.id = id
         self.name = name
+
+        if self.edit:
+            self.add = ctk.CTkButton(master=self, text="+", fg_color=self.fg_color, text_color='green',
+                                     hover=False, command=partial(self.add_team, self.name))
+            self.add.pack()
+            self.add.place(relx=0.5, rely=0.5)
 
         self.image = ctk.CTkButton(master=self, image=getPixelSprite(id), text="", fg_color=self.fg_color,
                                    hover=False, command=self.clicked)
@@ -119,4 +134,15 @@ class PokeCard(ctk.CTkFrame):
     def clicked(self):
         self.master.master.master.frame_right.destroy()
         self.master.master.master.frame_right = PokemonPage(self.id, master=self.master.master.master)
+        self.master.master.master.frame_right.setup()
+
+    def add_team(self, pokemon_name):
+        local_storage.LocalStorage().set_data(item=self.pokemon_number, value=pokemon_name)
+        print(self.pokemon_number)
+        print(pokemon_name)
+        print(local_storage.LocalStorage().get_data(item=self.pokemon_number))
+
+        self.master.master.master.frame_right.destroy()
+        from pages.team_add_page import TeamAddPage
+        self.master.master.master.frame_right = TeamAddPage()
         self.master.master.master.frame_right.setup()
