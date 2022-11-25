@@ -115,8 +115,8 @@ class PokeCard(ctk.CTkFrame):
         self.configure(corner_radius=15, border_width=1, border_color="white")
 
         if self.edit:
-            self.add = ctk.CTkButton(master=self, text="Ajouter", fg_color=self.fg_color, text_color='green', border_color='green', border_width=1,
-                                     hover_color=self.bg_color, command=partial(self.add_team, self.name), width=50)
+            self.add = ctk.CTkButton(master=self, text="Ajouter", fg_color=self.bg_color, text_color='green', border_color='green', border_width=1,
+                                     hover_color=self.fg_color, command=partial(self.add_team, self.name), width=50)
             self.add.pack()
             self.add.place(relx=0.65, rely=0.1)
 

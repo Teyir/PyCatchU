@@ -1,6 +1,11 @@
+import urllib.request
+from PIL import Image
 import requests
 import re
 from PIL import Image,ImageTk
+
+from utils.images import download_file
+
 
 def get_pokemons_amount():
     url = 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=1'
@@ -24,8 +29,7 @@ def get_pokemon(id_or_name):
 
 def get_pokemon_sprite(name):
     link = get_pokemon(name)['sprites']['front_default']
-    im = Image.open(link)
-    return ImageTk.PhotoImage(im)
+    return download_file(link)
 
 
 def get_pokemon_species(id_or_name):
